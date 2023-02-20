@@ -1,5 +1,6 @@
 ﻿using JWTAuthAPI.Application.Core.DTOs.Product;
 using JWTAuthAPI.Application.Core.Helpers;
+using System.Linq;
 
 namespace JWTAuthAPI.Application.Core.Mappings
 {
@@ -26,10 +27,7 @@ namespace JWTAuthAPI.Application.Core.Mappings
 
             if (products != null)
             {
-                foreach (var product in products)
-                {
-                    productsResponse.Add(product.ToResponseDTO());
-                }
+                productsResponse.AddRange(products.Select(product => product.ToResponseDTO()));
             }
 
             return productsResponse;

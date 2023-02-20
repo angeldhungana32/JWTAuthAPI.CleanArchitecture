@@ -1,12 +1,6 @@
 ﻿using JWTAuthAPI.Application.Core.DTOs.Authentication;
-using JWTAuthAPI.Application.Core.DTOs.UserAccount;
 using JWTAuthAPI.Application.Core.Entities.Identity;
 using JWTAuthAPI.Application.Core.Mappings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JWTAuthAPI.Application.Tests.Application.Core
 {
@@ -16,7 +10,7 @@ namespace JWTAuthAPI.Application.Tests.Application.Core
         public void ShouldMapApplicationUserToAuthenticateResponseDTO()
         {
             // Setup
-            ApplicationUser user = new ApplicationUser()
+            ApplicationUser user = new ()
             {
                 FirstName = "Test",
                 LastName = "Test",
