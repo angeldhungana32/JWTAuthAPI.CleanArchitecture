@@ -2,6 +2,6 @@
 {
     public class RoleConfiguration
     {
-        public IEnumerable<string>? Roles { get; set; }
+        public IEnumerable<string>? AvailableRoles { get; set; }
     }
 }

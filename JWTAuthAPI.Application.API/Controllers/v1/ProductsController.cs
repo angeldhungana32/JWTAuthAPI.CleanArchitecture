@@ -23,7 +23,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
         }
 
         // POST api/v1/Products
-        [HttpPost(RoutesConstant.AddProduct)]
+        [HttpPost(RouteConstants.AddProduct)]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status201Created)]
@@ -39,7 +39,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
         }
 
         // GET api/v1/Products/id
-        [HttpGet(RoutesConstant.GetProduct)]
+        [HttpGet(RouteConstants.GetProduct)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
@@ -52,7 +52,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
         }
 
         // PUT api/v1/Products/id
-        [HttpPut(RoutesConstant.UpdateProduct)]
+        [HttpPut(RouteConstants.UpdateProduct)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -76,7 +76,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
         }
 
         // DELETE api/v1/Products/id
-        [HttpDelete(RoutesConstant.DeleteProduct)]
+        [HttpDelete(RouteConstants.DeleteProduct)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -96,7 +96,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
             return NoContent();
         }
 
-        [HttpGet(RoutesConstant.GetAllProductsByUserId)]
+        [HttpGet(RouteConstants.GetAllProductsByUserId)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<ProductResponse>), StatusCodes.Status200OK)]

@@ -12,5 +12,6 @@ namespace JWTAuthAPI.Application.Core.Interfaces
         Task<bool> DeleteUserAsync(ApplicationUser entity);
         Task<AuthenticateResponse?> AuthenticateUserAsync(AuthenticateRequest request);
         Task<bool> AuthorizeOwnerAsync(ClaimsPrincipal userContext, ApplicationUser resource);
+        Task<IReadOnlyList<ApplicationUser>> GetAllUsers();
     }
 }

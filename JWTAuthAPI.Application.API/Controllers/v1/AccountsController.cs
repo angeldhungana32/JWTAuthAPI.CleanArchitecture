@@ -28,7 +28,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
         }
 
         // POST api/v1/Accounts/Login
-        [HttpPost(RoutesConstant.Login)]
+        [HttpPost(RouteConstants.Login)]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(AuthenticateResponse), StatusCodes.Status200OK)]
@@ -42,7 +42,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
         }
 
         // POST api/v1/Accounts/Register
-        [HttpPost(RoutesConstant.Register)]
+        [HttpPost(RouteConstants.Register)]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status201Created)]
@@ -56,7 +56,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
         }
 
         // GET api/v1/Accounts/Users/id
-        [HttpGet(RoutesConstant.GetUser)]
+        [HttpGet(RouteConstants.GetUser)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
@@ -69,8 +69,21 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
             return user == null ? NotFound() : Ok(user.ToResponseDTO());
         }
 
+        // GET api/v1/Accounts/Users/
+        [Authorize(Roles = Roles.ADMIN)]
+        [HttpGet(RouteConstants.GetAllUsers)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllUsersAsync()
+        {
+            var users = await _accountService.GetAllUsers();
+
+            return Ok(users.ToResponseDTO());
+        }
+
         // PUT api/v1/Accounts/Users/id
-        [HttpPut(RoutesConstant.UpdateUser)]
+        [HttpPut(RouteConstants.UpdateUser)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -94,7 +107,7 @@ namespace JWTAuthAPI.Application.API.Controllers.v1
         }
 
         // DELETE api/v1/Accounts/Users/id
-        [HttpDelete(RoutesConstant.DeleteUser)]
+        [HttpDelete(RouteConstants.DeleteUser)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

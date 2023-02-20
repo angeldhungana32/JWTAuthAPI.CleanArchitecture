@@ -1,6 +1,7 @@
 ﻿using JWTAuthAPI.Application.API.Extensions;
 using JWTAuthAPI.Application.Core.Configurations;
 using JWTAuthAPI.Application.Core.Entities.Identity;
+using JWTAuthAPI.Application.Core.Helpers;
 using JWTAuthAPI.Application.Core.Interfaces;
 using JWTAuthAPI.Application.Infrastructure.Data;
 using JWTAuthAPI.Application.Infrastructure.Extensions;
@@ -16,15 +17,15 @@ namespace JWTAuthAPI.Application.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+            if (configuration.GetValue<bool>(ConfigurationSectionKeyConstants.UseInMemoryDB))
             {
                 services.AddDbContext<ApplicationDbContext>(options => 
-                    options.UseInMemoryDatabase("JWTAuthAPIDb"));
+                    options.UseInMemoryDatabase(ConfigurationSectionKeyConstants.DBName));
             }
             else
             {
                 services.AddDbContext<ApplicationDbContext>(options => 
-                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(configuration.GetConnectionString(ConfigurationSectionKeyConstants.DBConnectionString)));
             }
 
             services.AddIdentityCore<ApplicationUser>(
@@ -42,9 +43,9 @@ namespace JWTAuthAPI.Application.Infrastructure
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-
-            services.Configure<AdminConfiguration>(configuration.GetSection("AdminCredentials"));
-            services.Configure<RoleConfiguration>(configuration.GetSection("AvailableRoles"));
+            
+            services.Configure<AdminConfiguration>(configuration.GetSection(ConfigurationSectionKeyConstants.Admin));
+            services.Configure<RoleConfiguration>(configuration.GetSection(ConfigurationSectionKeyConstants.Roles));
 
             services.AddTransient<ApplicationDbInitializer>();
             services.AddTransient<IRepositoryActivator, RepositoryActivator>();

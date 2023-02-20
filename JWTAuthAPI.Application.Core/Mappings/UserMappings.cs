@@ -18,6 +18,18 @@ namespace JWTAuthAPI.Application.Core.Mappings
             };
         }
 
+        public static List<UserResponse> ToResponseDTO(this IReadOnlyCollection<ApplicationUser> users)
+        {
+            List<UserResponse> usersResponse = new();
+
+            if (users != null)
+            {
+                usersResponse.AddRange(users.Select(user => user.ToResponseDTO()));
+            }
+
+            return usersResponse;
+        }
+
         public static ApplicationUser ToEntity(this UserCreateRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -43,7 +55,6 @@ namespace JWTAuthAPI.Application.Core.Mappings
             }
 
             return user;
-
         }
     }
 }

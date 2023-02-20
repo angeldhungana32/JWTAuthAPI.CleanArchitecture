@@ -1,7 +1,7 @@
 ﻿using JWTAuthAPI.Application.Core.AuthorizationRequirement;
 using JWTAuthAPI.Application.Core.DTOs.Authentication;
 using JWTAuthAPI.Application.Core.Entities.Identity;
-using JWTAuthAPI.Application.Core.Enums;
+using JWTAuthAPI.Application.Core.Helpers;
 using JWTAuthAPI.Application.Core.Interfaces;
 using JWTAuthAPI.Application.Core.Mappings;
 using Microsoft.AspNetCore.Authorization;
@@ -15,13 +15,16 @@ namespace JWTAuthAPI.Application.Core.Services
         private readonly ITokenService _tokenService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IRepositoryActivator _repositoryActivator;
 
         public AccountService(UserManager<ApplicationUser> userManager, ITokenService tokenService,
-            IAuthorizationService authorizationService) 
+            IAuthorizationService authorizationService, 
+            IRepositoryActivator repositoryActivator)
         {
             _userManager = userManager;
             _tokenService = tokenService;
             _authorizationService = authorizationService;
+            _repositoryActivator = repositoryActivator;
         }
 
         public async Task<ApplicationUser?> AddUserAsync(ApplicationUser entity, string password)
@@ -30,7 +33,7 @@ namespace JWTAuthAPI.Application.Core.Services
             var validUser = await _userManager.FindByEmailAsync(entity.Email);
             if (validUser != null)
             {
-                await _userManager.AddToRoleAsync(validUser, Roles.User.ToString());
+                await _userManager.AddToRoleAsync(validUser, Roles.USER.ToString());
             }
             return validUser;
         }
@@ -75,6 +78,11 @@ namespace JWTAuthAPI.Application.Core.Services
                     new UserIsOwnerRequirement());
 
             return authorized.Succeeded;
+        }
+
+        public async Task<IReadOnlyList<ApplicationUser>> GetAllUsers()
+        {
+            return await _repositoryActivator.Repository<ApplicationUser>().ListAllAsync();
         }
     }
 }

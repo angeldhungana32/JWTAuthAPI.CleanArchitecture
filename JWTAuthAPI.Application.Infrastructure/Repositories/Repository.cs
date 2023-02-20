@@ -47,5 +47,10 @@ namespace JWTAuthAPI.Application.Infrastructure.Repositories
             _dbContext.Entry(entity).State = EntityState.Modified;
             return await _dbContext.SaveChangesAsync() > 0;
         }
+
+        public async Task<IReadOnlyList<T>> ListAllAsync()
+        {
+            return await _dbContext.Set<T>().ToListAsync();
+        }
     }
 }

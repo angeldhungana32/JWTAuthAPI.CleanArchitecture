@@ -1,8 +1,9 @@
 ﻿using JWTAuthAPI.Application.Core.Configurations;
 using JWTAuthAPI.Application.Core.Entities.Identity;
-using JWTAuthAPI.Application.Core.Enums;
+using JWTAuthAPI.Application.Core.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -14,20 +15,20 @@ namespace JWTAuthAPI.Application.Infrastructure.Data
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly AdminConfiguration _adminConfiguration;
-        private readonly RoleConfiguration _roleConfiguration;
         private readonly ILogger<ApplicationDbInitializer> _logger;
+        private readonly IConfiguration _configuration;
 
         public ApplicationDbInitializer(UserManager<ApplicationUser> userManager,
            RoleManager<ApplicationRole> roleManager,
            IOptions<AdminConfiguration> adminConfiguration,
-           IOptions<RoleConfiguration> roleConfiguration,
            ApplicationDbContext context,
+           IConfiguration configuration,
            ILogger<ApplicationDbInitializer> logger)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _adminConfiguration = adminConfiguration.Value;
-            _roleConfiguration = roleConfiguration.Value;
+            _configuration = configuration;
             _context = context;
             _logger = logger;
         }
@@ -63,9 +64,12 @@ namespace JWTAuthAPI.Application.Infrastructure.Data
 
         private async Task TrySeedRoles()
         {
-            if(_roleConfiguration.Roles != null)
+            RoleConfiguration roleConfiguration = new();
+            _configuration.GetSection(ConfigurationSectionKeyConstants.Roles).Bind(roleConfiguration);
+            
+            if (roleConfiguration.AvailableRoles != null)
             {
-                foreach(string role in _roleConfiguration.Roles)
+                foreach(string role in roleConfiguration.AvailableRoles)
                 {
                     var result = await _roleManager.RoleExistsAsync(role);
                     if (!result)
@@ -94,7 +98,7 @@ namespace JWTAuthAPI.Application.Infrastructure.Data
                 var result = await _userManager.CreateAsync(user, _adminConfiguration.Password);
                 if (result.Succeeded)
                 {
-                    _userManager.AddToRoleAsync(user,Roles.Admin.ToString()).Wait();
+                    _userManager.AddToRoleAsync(user,Roles.ADMIN).Wait();
                 }
             }
         }
