@@ -4,6 +4,6 @@ namespace JWTAuthAPI.Application.Core.Interfaces
 {
     public interface ITokenService
     {
-        string GenerateAuthenticationToken(ApplicationUser user);
+        string GenerateAuthenticationToken(ApplicationUser user, List<string> roles);
     }
 }

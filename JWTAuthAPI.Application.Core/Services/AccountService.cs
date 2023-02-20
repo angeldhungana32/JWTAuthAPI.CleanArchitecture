@@ -47,7 +47,8 @@ namespace JWTAuthAPI.Application.Core.Services
                 var isValidUser = await _userManager.CheckPasswordAsync(user, request.Password);
                 if (isValidUser)
                 {
-                    string token = _tokenService.GenerateAuthenticationToken(user);
+                    var roles = await _userManager.GetRolesAsync(user);
+                    string token = _tokenService.GenerateAuthenticationToken(user, (List<string>)roles);
                     return user.ToResponseDTO(token);
                 }
             }
