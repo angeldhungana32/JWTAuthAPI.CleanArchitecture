@@ -1,8 +1,8 @@
 # JWTAuthAPI.CleanArchitecture
 
-By harnessing the full potential of ASP.NET Core, this project demonstrates a robust and secure API with JWT Authentication, Entity Framework for seamless data manipulation, Specification Pattern for querying complex criteria, and a Service/Repository/Controller pattern for streamlined code organization. Furthermore, the API includes an authorization handler to exclusively permit resource owners to make modifications. To add to its merits, this project has now been revamped with Clean Architecture for enhanced maintainability and scalability.
 
-## Recent changes have been made to the architecture design of the project, emphasizing separation of concerns and clean architecture principles. The architecture now consists of four main components - Core, Infrastructure, API, and Tests - each with its own specific role.
+## Changes have been made to the architecture design of the JWTAuthAPI project, emphasizing separation of concerns and clean architecture principles. 
+The architecture now consists of four main components - Core, Infrastructure, API, and Tests - each with its own specific role.
 
 * Application.Core: This component holds the business model, including entities, services, and interfaces. It is independent of other projects, making it a self-contained module.
 * Application.Infrastructure: This component implements the abstraction from the Core component for data and file access. It includes repository implementations, file services, and context setup for EF Core, among other things. All data access, including migrations, is implemented here.
