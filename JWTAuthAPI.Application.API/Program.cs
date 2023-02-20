@@ -32,7 +32,7 @@ app.UseJwtAuthorization();
 app.MapControllers();
 app.Run();
 
-static async Task SeedDatabaseAsync(IHost app)
+static async Task SeedDatabaseAsync(this IHost app)
 {
     using var scope = app.Services.CreateScope();
     var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbInitializer>();

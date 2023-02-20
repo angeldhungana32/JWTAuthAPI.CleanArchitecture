@@ -1,5 +1,9 @@
 # JWTAuthAPI.CleanArchitecture
 
+<br/>
+<img src="solutionitems/JWTAuthAPICleanArchitecture.png"
+     alt="Architecture"
+     style="float: center; margin-right: 10px;" />
 
 ## Changes have been made to the architecture design of the JWTAuthAPI project, emphasizing separation of concerns and clean architecture principles. 
 The architecture now consists of four main components - Core, Infrastructure, API, and Tests - each with its own specific role.
