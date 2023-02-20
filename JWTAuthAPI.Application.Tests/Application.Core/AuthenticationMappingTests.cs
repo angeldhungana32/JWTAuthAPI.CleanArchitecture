@@ -15,6 +15,7 @@ namespace JWTAuthAPI.Application.Tests.Application.Core
         [Fact]
         public void ShouldMapApplicationUserToAuthenticateResponseDTO()
         {
+            // Setup
             ApplicationUser user = new ApplicationUser()
             {
                 FirstName = "Test",
@@ -22,7 +23,11 @@ namespace JWTAuthAPI.Application.Tests.Application.Core
                 Email = "test@test.com",
                 Id = Guid.NewGuid()
             };
+
+            // Act
             var result = user.ToResponseDTO("token");
+
+            // Assert
             Assert.NotNull(result);
             Assert.True(result.GetType().IsAssignableFrom(typeof(AuthenticateResponse)));
             Assert.NotNull(result.Id);
