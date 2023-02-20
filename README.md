@@ -20,6 +20,7 @@ Finally, all models have been abstracted under the BaseEntity, following the Abs
 * Specification Pattern: Uses the specification pattern to query the database with complex criteria to retrieve entities that match the criteria.
 * Service/Repository/Controller pattern: Uses the Service/Repository/Controller pattern to improve code organization and maintainability.
 * Authorization Handler: Forbid users who are not owners from modifying resources to improve data security.
+* Role Based Authorization: Added role based authorization for certain endpoints
 * Database: Currently using InMemoryDatabase, but you can easily swap with the SQL Server by setting the appsettings.json {"UseInMemoryDatabase" : false}
 * FluentValidation : Uses the fluent validators for request model validation
 
