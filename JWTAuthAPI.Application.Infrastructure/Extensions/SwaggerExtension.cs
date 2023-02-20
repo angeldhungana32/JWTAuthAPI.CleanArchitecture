@@ -1,4 +1,6 @@
 ﻿using JWTAuthAPI.Application.Core.Configurations;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace JWTAuthAPI.Application.API.Extensions

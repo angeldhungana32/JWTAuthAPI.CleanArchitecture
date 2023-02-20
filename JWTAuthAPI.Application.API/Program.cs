@@ -1,42 +1,19 @@
-using FluentValidation;
-using JWTAuthAPI.Application.API.AuthorizationHandlers;
-using JWTAuthAPI.Application.API.Extensions;
+using JWTAuthAPI.Application.API;
 using JWTAuthAPI.Application.API.Middlewares;
-using JWTAuthAPI.Application.API.Validations;
-using JWTAuthAPI.Application.Core.Interfaces;
-using JWTAuthAPI.Application.Core.Services;
-using JWTAuthAPI.Application.Infrastructure.Data;
-using JWTAuthAPI.Application.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
+using JWTAuthAPI.Application.Core;
+using JWTAuthAPI.Application.Infrastructure;
+using JWTAuthAPI.Application.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole().AddDebug();
 
-builder.Services.AddCorsPolicy();
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("JWTAuthAPIDb"));
-
-builder.Services.AddSwaggerCustom(builder.Configuration);
-builder.Services.AddJwtAuthentication(builder.Configuration);
-
-builder.Services.AddValidatorsFromAssemblyContaining<AuthenticateRequestValidator>();
-
-builder.Services.AddScoped<ITokenService, JwtTokenService>();
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddTransient<IRepositoryActivator, RepositoryActivator>();
-builder.Services.AddScoped<IAuthorizationHandler, UserIsOwnerAuthorizationHandler>();
-
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddCoreServices();
 
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,4 +1,7 @@
-﻿namespace JWTAuthAPI.Application.API.Extensions
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace JWTAuthAPI.Application.Infrastructure.Extensions
 {
     public static class CorsPolicyExtension
     {

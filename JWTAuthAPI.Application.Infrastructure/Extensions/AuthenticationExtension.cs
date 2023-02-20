@@ -2,11 +2,14 @@
 using JWTAuthAPI.Application.Core.Entities.Identity;
 using JWTAuthAPI.Application.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace JWTAuthAPI.Application.API.Extensions
+namespace JWTAuthAPI.Application.Infrastructure.Extensions
 {
     public static class AuthenticationExtension
     {
