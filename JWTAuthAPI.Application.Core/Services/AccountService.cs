@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace JWTAuthAPI.Application.Infrastructure.Services
+namespace JWTAuthAPI.Application.Core.Services
 {
     public class AccountService : IAccountService
     {

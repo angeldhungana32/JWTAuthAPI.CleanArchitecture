@@ -4,7 +4,7 @@ using JWTAuthAPI.Application.Core.Interfaces;
 using JWTAuthAPI.Application.Core.Specifications;
 using System.Security.Claims;
 
-namespace JWTAuthAPI.Application.Infrastructure.Services
+namespace JWTAuthAPI.Application.Core.Services
 {
     public class ProductService : IProductService
     {

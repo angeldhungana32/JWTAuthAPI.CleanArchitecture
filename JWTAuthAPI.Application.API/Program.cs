@@ -4,9 +4,9 @@ using JWTAuthAPI.Application.API.Extensions;
 using JWTAuthAPI.Application.API.Middlewares;
 using JWTAuthAPI.Application.API.Validations;
 using JWTAuthAPI.Application.Core.Interfaces;
+using JWTAuthAPI.Application.Core.Services;
 using JWTAuthAPI.Application.Infrastructure.Data;
 using JWTAuthAPI.Application.Infrastructure.Repositories;
-using JWTAuthAPI.Application.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
