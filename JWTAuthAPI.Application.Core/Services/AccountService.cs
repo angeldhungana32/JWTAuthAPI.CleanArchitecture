@@ -1,6 +1,7 @@
 ﻿using JWTAuthAPI.Application.Core.AuthorizationRequirement;
 using JWTAuthAPI.Application.Core.DTOs.Authentication;
 using JWTAuthAPI.Application.Core.Entities.Identity;
+using JWTAuthAPI.Application.Core.Enums;
 using JWTAuthAPI.Application.Core.Interfaces;
 using JWTAuthAPI.Application.Core.Mappings;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +28,10 @@ namespace JWTAuthAPI.Application.Core.Services
         {
             await _userManager.CreateAsync(entity, password);
             var validUser = await _userManager.FindByEmailAsync(entity.Email);
+            if (validUser != null)
+            {
+                await _userManager.AddToRoleAsync(validUser, Roles.User.ToString());
+            }
             return validUser;
         }
 
